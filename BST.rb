@@ -31,6 +31,47 @@ class Tree
   end
 
   def insert(value)
+    node = @root
+
+    until (value < node.value && node.left_node.nil?) || (value > node.value && node.right_node.nil?)
+      return puts "Tree already contains '#{value}" if value == node.value
+
+      if value < node.value
+        node = node.left_node
+      else
+        node = node.right_node
+      end
+    end
+
+    if value < node.value
+      node.left_node = Node.new(value)
+    elsif value > node.value
+      node.right_node = Node.new(value)
+    end
+  end
+
+  def delete(value)
+    node = @root
+    next_node = @root
+
+    until value == next_node.value
+      return puts "Tree does not contain value: #{value}" if (value < node.value && node.left_node.nil?) || (value > node.value && node.right_node.nil?)
+
+      if value < node.value
+        node = next_node
+        next_node = node.left_node
+      else
+        node = next_node
+        next_node = node.right_node
+      end
+    end
+
+    if value < node.value
+      node.left_node = next_node
+    end
+  end
+
+  def find(value)
     
   end
 end
