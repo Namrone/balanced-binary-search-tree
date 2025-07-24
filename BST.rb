@@ -52,23 +52,27 @@ class Tree
 
   def delete(value)
     node = @root
-    next_node = @root
 
-    until value == next_node.value
+    until value == node.value
       return puts "Tree does not contain value: #{value}" if (value < node.value && node.left_node.nil?) || (value > node.value && node.right_node.nil?)
+      parent = node
+      node = value < node.value ? node.left_node : node.right_node
+    end
 
-      if value < node.value
-        node = next_node
-        next_node = node.left_node
-      else
-        node = next_node
-        next_node = node.right_node
+    #This block is performed unless value is a leaf node
+    unless node.left_node.nil? && node.right_node.nil?
+      replacement = node.right_node.nil? ? node.left_node : node.right_node 
+
+      while replacement.left_node || replacement.right_node
+        parent = replacement
+        replacement = replacement.left_node.nil? ? replacement.right_node : replacement.left_node
       end
+
+      new_value = replacement.value
+      node.value = new_value
     end
 
-    if value < node.value
-      node.left_node = next_node
-    end
+    value < parent.value ? parent.left_node = nil : parent.right_node = nil
   end
 
   def find(value)
