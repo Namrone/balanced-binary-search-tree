@@ -81,4 +81,26 @@ class Tree
 
     return node
   end
+
+  def nodes_in_level(node, level)
+    
+  end
+
+  def level_order
+    queue = [@root]
+    breadth_values = []
+
+    until queue.empty?
+      temp = []
+      queue.each do |node|
+        yield(node) if block_given?
+        breadth_values << node.value
+        temp << node.left_node if node.left_node
+        temp << node.right_node if node.right_node
+      end
+      queue = temp
+    end
+
+    return breadth_values
+  end
 end
