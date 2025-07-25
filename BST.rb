@@ -103,4 +103,23 @@ class Tree
 
     return breadth_values
   end
+
+  def preorder(node = @root, preorder_values = [])
+    return if node.nil?
+    yield(node) if block_given?
+
+    preorder_values << node.value
+    preorder(node.left_node, preorder_values)
+    preorder(node.right_node, preorder_values)
+
+    return preorder_values
+  end
+
+  def inorder
+    
+  end
+
+  def postorder
+    
+  end
 end
