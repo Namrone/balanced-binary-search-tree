@@ -115,11 +115,26 @@ class Tree
     return preorder_values
   end
 
-  def inorder
-    
+  def inorder(node = @root, inorder_values = [])
+    return if node.nil?
+
+    inorder(node.left_node, inorder_values)
+    inorder_values << node.value
+    yield(node) if block_given?
+    inorder(node.right_node, inorder_values)
+
+    return inorder_values
   end
 
-  def postorder
-    
+  def postorder(node = @root, postorder_values  = [])
+    return if node.nil?
+
+    postorder(node.left_node, postorder_values)
+    postorder(node.right_node, postorder_values)
+
+    postorder_values << node.value
+    yield(node) if block_given?
+
+    return postorder_values
   end
 end
