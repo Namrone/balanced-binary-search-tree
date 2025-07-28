@@ -166,4 +166,17 @@ class Tree
 
     return max_height
   end
+
+  def depth(value)
+    node = @root
+    depth = 0
+
+    until value == node.value
+      node = value < node.value ? node.left_node : node.right_node
+      depth += 1
+      return nil if node.nil?
+    end
+
+    return depth
+  end
 end
