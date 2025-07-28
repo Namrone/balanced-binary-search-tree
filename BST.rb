@@ -82,10 +82,6 @@ class Tree
     return node
   end
 
-  def nodes_in_level(node, level)
-    
-  end
-
   def level_order
     queue = [@root]
     breadth_values = []
@@ -178,6 +174,24 @@ class Tree
     end
 
     return depth
+  end
+
+  def balanced?
+    level_order do |node|
+      left_val = node.left_node.nil? ? node.value : node.left_node.value
+      right_val = node.right_node.nil? ? node.value : node.right_node.value
+
+      left_height = height(left_val)
+      right_height = height(right_val)
+
+      difference = left_height - right_height
+      if difference.abs > 1
+        puts "Tree is not balanced"
+        return
+      end
+    end
+
+    puts "Tree is balanced"
   end
 
   def rebalance
