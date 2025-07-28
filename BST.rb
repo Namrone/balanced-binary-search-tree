@@ -179,4 +179,9 @@ class Tree
 
     return depth
   end
+
+  def rebalance
+    tree_values = self.preorder
+    @root = self.build_tree(tree_values.sort.uniq)
+  end
 end
