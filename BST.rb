@@ -137,4 +137,33 @@ class Tree
 
     return postorder_values
   end
+
+  def height_dig(node, height)
+    return height -= 1 if node.nil?
+    
+    left_height = height_dig(node.left_node, height += 1)
+    height -= 1
+    right_height = height_dig(node.right_node, height += 1)
+
+    height -= 1
+    if left_height > right_height
+      return left_height
+    else
+      return right_height
+    end
+  end
+
+  def height(value)
+    node = @root
+    max_height = 0
+
+    until value == node.value
+      node = value < node.value ? node.left_node : node.right_node
+      return nil if node.nil?
+    end
+
+    max_height = height_dig(node, max_height)
+
+    return max_height
+  end
 end
